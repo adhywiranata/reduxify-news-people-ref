@@ -4,9 +4,6 @@ import './App.css';
 
 // npm
 import {BrowserRouter, Route} from 'react-router-dom'
-import {createStore} from 'redux'
-import {Provider} from 'react-redux'
-
 // component
 import ShowList from './ShowList'
 import Peoples from './Peoples'

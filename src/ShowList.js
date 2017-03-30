@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
+
+import { fetchNews, getNewsFilter } from './actions';
 // FUNCTION
 import {getData} from './helper/getData.js'
 
@@ -13,12 +15,7 @@ class ShowList extends Component {
   }
 
   componentDidMount() {
-      // callback
-      let saveData = (data) => {
-        console.log(data.hits);
-        this.props.getNews(data.hits)
-      }
-      getData('https://hn.algolia.com/api/v1/search?query=react&query=redux&tags=story', saveData)
+    this.props.fetchNews()
   }
 
   handleChange(event) {
@@ -58,7 +55,7 @@ class ShowList extends Component {
     )
   }
 }
-// INIT STATE & DISPATCH FROM REDUX
+
 const mapStateToProps = (state) => {
   return {
     newsFilter: state.news.newsFilter
@@ -67,15 +64,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getNews: (results) => dispatch({
-      type: "GET_NEWS",
-      payload: results
-    }),
-
-    getNewsFilter: (result) => dispatch({
-      type: "GET_NEWS_FILTER",
-      payload: result
-    })
+    fetchNews: () => dispatch(fetchNews()),
+    getNewsFilter: (result) => dispatch(getNewsFilter(result))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps) (ShowList)

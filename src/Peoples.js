@@ -1,20 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-// FUNCTION
-import {getData} from './helper/getData.js'
+
+import { fetchPeople } from './actions';
 
 class Peoples extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
-    // CALLBACK
-    let saveData = (data) => {
-      console.log(data.results)
-        this.props.getPeople(data.results)
-    }
-    getData('http://swapi.co/api/people',saveData)
+    this.props.fetchPeople()
   }
 
   render() {
@@ -38,10 +29,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPeople: (results) => dispatch({
-      type: "GET_PEOPLE",
-      payload: results
-    })
+    fetchPeople: () => dispatch(fetchPeople())
   }
 }
 
